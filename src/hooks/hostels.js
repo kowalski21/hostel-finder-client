@@ -9,3 +9,18 @@ export const useHostels = ({ queryParams, queryKey } = {}) => {
     queryKey: queryKey,
   });
 };
+
+export const useHostel = ({ queryKey, id } = {}) => {
+  return useQuery({
+    queryFn: async () => await client.request("get", `/hostels/${id}`),
+    queryKey: queryKey,
+    enabled: id ? true : false,
+  });
+};
+
+export const useHostelRooms = ({ queryKey, hostelId, queryParams } = {}) => {
+  return useQuery({
+    queryFn: async () => await client.request("get", `/hostels/${hostelId}/rooms`, { params: queryParams }),
+    queryKey: queryKey,
+  });
+};

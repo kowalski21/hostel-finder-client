@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Drawer, ButtonToolbar, Button, Placeholder } from "rsuite";
-import { AlignJustify, BellDot, BarChart2, ScanBarcode, Users } from "lucide-react";
+import { Drawer, Button } from "rsuite";
+import { AlignJustify, Users, LayoutGrid, Archive } from "lucide-react";
 import IconLink from "../widgets/IconLink";
 const MenuDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -25,6 +25,16 @@ const MenuDrawer = () => {
                 {/* <BarChart2 size={32} color="white" /> */}
                 <Users size={32} color="white" />
                 {/* <ScanBarcode size={32} color="white" /> */}
+              </IconLink>
+            </div>
+            <div className="col-6">
+              <IconLink to="/" title="Home">
+                <LayoutGrid size={32} color="white" />
+              </IconLink>
+            </div>
+            <div className="col-6">
+              <IconLink to="/hostels" title="Hostels">
+                <Archive size={32} color="white" />
               </IconLink>
             </div>
           </div>

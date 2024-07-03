@@ -55,11 +55,11 @@ const UsersSearchTable = () => {
         {/* {JSON.stringify(query)} */}
         <div className="row ">
           <div className="col-6">
-            <Label>Search</Label>
+            <Label>Search By Name</Label>
             <Input value={search} onChange={(value) => setSearch(value)} />
           </div>
           <div className="col-6">
-            <Label>Search</Label>
+            <Label>Select Role</Label>
             <RoleSelect onChange={handleRole} />
             {/* <SelectPicker data={[]} block /> */}
           </div>
