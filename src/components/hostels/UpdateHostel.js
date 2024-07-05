@@ -55,6 +55,7 @@ const UpdateHostel = ({ hostel }) => {
       }
       payload.lat = parseFloat(payload.lat);
       payload.lng = parseFloat(payload.lng);
+      payload.no_rooms = parseInt(payload.no_rooms);
 
       const response = await client.request("patch", `/hostels/${id}`, { data: payload });
       return response;
