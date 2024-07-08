@@ -9,8 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lucide-react": "^0.402.0",
+    "next": "14.2.4",
     "react": "^18",
+    "react-bootstrap": "^2.10.4",
     "react-dom": "^18",
-    "next": "14.2.4"
+    "rsuite": "^5.65.1",
+    "react-query": "^3.39.3",
+    "zustand": "^4.5.2",
+    "@directus/sdk": "^10.3.1",
+    "joi": "^17.8.3",
+    "lodash": "^4.17.21",
+    "luxon": "^3.2.1",
+    "match-sorter": "^6.3.1",
+    "usehooks-ts": "^2.9.1"
   }
 }
