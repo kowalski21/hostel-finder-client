@@ -1,6 +1,37 @@
-import React from "react";
+import { useNotify } from "@/hooks/notify";
+import { directus } from "@/lib";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { useMutation } from "react-query";
 
 const LoginForm = () => {
+  const router = useRouter();
+  const { showError, showMsg } = useNotify();
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (keyName) => (e) => {
+    setValues({ ...values, [keyName]: e.target.value });
+  };
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      return await directus.auth.login(values);
+    },
+    onError: (e) => {
+      showError(e.message);
+    },
+    onSuccess: (data) => {
+      showMsg(`User Login Success`);
+      router.push(`/dashboard`);
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    mutation.mutate();
+  };
   return (
     <div className="py-20">
       <form className="form w-100" novalidate="novalidate">
@@ -19,6 +50,8 @@ const LoginForm = () => {
           <div className="fv-row mb-8">
             <input
               type="text"
+              value={values.email}
+              onChange={handleChange("email")}
               placeholder="Email"
               name="email"
               autocomplete="off"
@@ -28,7 +61,9 @@ const LoginForm = () => {
 
           <div className="fv-row mb-7">
             <input
-              type="text"
+              value={values.password}
+              onChange={handleChange("password")}
+              type="password"
               placeholder="Password"
               name="password"
               autocomplete="off"
@@ -45,7 +80,7 @@ const LoginForm = () => {
           </div>
 
           <div className="d-flex flex-stack">
-            <button className="btn btn-primary text-white me-2 flex-shrink-0">
+            <button className="btn btn-primary text-white me-2 flex-shrink-0" onClick={handleSubmit}>
               <span className="text-white">Sign In</span>
             </button>
 
