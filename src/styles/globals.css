@@ -7,3 +7,11 @@
   font-family:'Circular Std' ;
 
 }
+/* transform: translate3d(-110.5px, 45px, 0px); */
+.avatar__menu {
+  z-index: 107;
+  position: fixed;
+  inset: 0px 0px auto auto;
+  margin: 0px;
+  transform: translate3d(-30.5px, 70px, 0px);
+}

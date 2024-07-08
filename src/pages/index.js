@@ -5,7 +5,8 @@ const Home = () => {
   return (
     <div className="container mt-5">
       <LinkButton to="/auth/login">Login</LinkButton>
-      <LinkButton>Sign Up</LinkButton>
+      <LinkButton to="/signup">Sign Up</LinkButton>
+      <LinkButton to="/dashboard">Dashboard</LinkButton>
     </div>
   );
 };
