@@ -15,3 +15,16 @@
   margin: 0px;
   transform: translate3d(-30.5px, 70px, 0px);
 }
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+}

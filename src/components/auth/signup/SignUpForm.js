@@ -64,7 +64,7 @@ const SignUpForm = () => {
           </div>
 
           <div className="fv-row mb-8">
-            <label class="required text-dark fw-bold fs-6 mb-2">Email</label>
+            <label className="required text-dark fw-bold fs-6 mb-2">Email</label>
             <input
               type="text"
               placeholder="Email"
@@ -77,7 +77,7 @@ const SignUpForm = () => {
           </div>
 
           <div className="fv-row mb-7">
-            <label class="required text-dark fw-bold fs-6 mb-2">Password</label>
+            <label className="required text-dark fw-bold fs-6 mb-2">Password</label>
             <input
               type="text"
               placeholder="Password"
@@ -90,7 +90,7 @@ const SignUpForm = () => {
           </div>
           <div className="row fv-row">
             <div className="col-6">
-              <label class="required text-dark fw-bold fs-6 mb-2">First Name</label>
+              <label className="required text-dark fw-bold fs-6 mb-2">First Name</label>
               <input
                 type="text"
                 placeholder="First Name"
@@ -101,7 +101,7 @@ const SignUpForm = () => {
               />
             </div>
             <div className="col-6">
-              <label class="required text-dark fw-bold fs-6 mb-2">Last Name</label>
+              <label className="required text-dark fw-bold fs-6 mb-2">Last Name</label>
               <input
                 type="text"
                 placeholder="Last Name"
@@ -114,7 +114,7 @@ const SignUpForm = () => {
           </div>
           <div className="row fv-row mt-4">
             <div className="col-12">
-              <label class="required text-dark fw-bold fs-6 mb-2">Upload Profie Picture</label>
+              <label className="required text-dark fw-bold fs-6 mb-2">Upload Profie Picture</label>
               <input type="file" name="" id="" className="form-control" onChange={handleFile} />
               {/* <Uploader
                 onChange={handleFile}

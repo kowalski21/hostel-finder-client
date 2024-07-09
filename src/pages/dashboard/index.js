@@ -1,5 +1,11 @@
-import AppHeader from "@/components/layout/dashboard/AppHeader";
+import NewHostelCard from "@/components/dashboard/modals/NewHostelCard";
+import RecentUsers from "@/components/dashboard/tables/RecentUsers";
+import HostelWidget from "@/components/dashboard/widgets/HostelWidget";
+import RoomRequestWidget from "@/components/dashboard/widgets/RoomRequestWidget";
+import TenantWidget from "@/components/dashboard/widgets/TenantWidget";
+import UsersWidget from "@/components/dashboard/widgets/UsersWidget";
 import AppLayout from "@/components/layout/dashboard/AppLayout";
+
 import React from "react";
 
 const DashboardPage = () => {
@@ -8,22 +14,25 @@ const DashboardPage = () => {
       <h3 className="text-gray-600">Hi, Devops</h3>
 
       <div className="row mt-10">
-        <div class="col-xl-3">
-          <a href="#" class="card bg-body hoverable card-xl-stretch mb-xl-8">
-            <div class="card-body">
-              <span class="svg-icon svg-icon-primary svg-icon-3x ms-n1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <rect x="8" y="9" width="3" height="10" rx="1.5" fill="currentColor"></rect>
-                  <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="currentColor"></rect>
-                  <rect x="18" y="11" width="3" height="8" rx="1.5" fill="currentColor"></rect>
-                  <rect x="3" y="13" width="3" height="6" rx="1.5" fill="currentColor"></rect>
-                </svg>
-              </span>
-
-              <div class="text-gray-900 fw-bolder fs-2 mb-2 mt-5">500M$</div>
-              <div class="fw-bold text-gray-400">SAP UI Progress</div>
-            </div>
-          </a>
+        <div class="col-xl-3 col-md-6">
+          <HostelWidget />
+        </div>
+        <div className="col-xl-3 col-md-6 mb-5">
+          <RoomRequestWidget />
+        </div>
+        <div className="col-xl-3 col-md-6">
+          <TenantWidget />
+        </div>
+        <div className="col-xl-3 col-md-6">
+          <UsersWidget />
+        </div>
+      </div>
+      <div className="row mt-2 mb-10">
+        <div className="col-md-4">
+          <NewHostelCard />
+        </div>
+        <div className="col-md-8">
+          <RecentUsers />
         </div>
       </div>
     </AppLayout>
