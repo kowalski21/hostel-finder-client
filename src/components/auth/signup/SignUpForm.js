@@ -12,6 +12,7 @@ const SignUpForm = () => {
     password: "",
     first_name: "",
     last_name: "",
+    role: "a3b1342a-221d-4c1a-9ade-530f12b01e4c",
   });
   const handleChange = (keyName) => (e) => {
     setValues({ ...values, [keyName]: e.target.value });
@@ -79,7 +80,7 @@ const SignUpForm = () => {
           <div className="fv-row mb-7">
             <label className="required text-dark fw-bold fs-6 mb-2">Password</label>
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               name="password"
               autocomplete="off"
@@ -141,7 +142,11 @@ const SignUpForm = () => {
 
           <div className="d-flex flex-stack">
             <button className="btn btn-dark text-white me-2 flex-shrink-0" onClick={handleSubmit}>
-              <span className="text-white">Sign Up</span>
+              {mutation.isLoading ? (
+                <span className="text-white">Please wait.....</span>
+              ) : (
+                <span className="text-white">Sign Up</span>
+              )}
             </button>
 
             {/* <div className="d-flex align-items-center">
