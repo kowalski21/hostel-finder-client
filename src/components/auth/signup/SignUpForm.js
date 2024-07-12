@@ -56,7 +56,7 @@ const SignUpForm = () => {
             {/* <div className="text-dark">{JSON.stringify({ values })}</div> */}
 
             <div className="text-gray-500 fw-semibold fs-6" data-kt-translate="general-desc">
-              Book A Hostel with simplicity and ease
+              Book A Hostel with simplicity and ease, anytime and anywhere
             </div>
             <div className="text-gray-800 mt-2 fw-bolder fs-6" data-kt-translate="general-desc">
               Sign Up to get started
