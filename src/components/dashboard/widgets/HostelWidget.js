@@ -11,7 +11,7 @@ const HostelWidget = () => {
     },
   });
   return (
-    <Link href={`/`} legacyBehavior>
+    <Link href={`/dashboard/hostels`} legacyBehavior>
       <a className="card bg-white card-xl-stretch mb-xl-8">
         {isLoading && <Loader vertical center />}
         {data && data?.data.length > 0 && (

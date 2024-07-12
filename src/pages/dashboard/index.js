@@ -5,8 +5,9 @@ import RoomRequestWidget from "@/components/dashboard/widgets/RoomRequestWidget"
 import TenantWidget from "@/components/dashboard/widgets/TenantWidget";
 import UsersWidget from "@/components/dashboard/widgets/UsersWidget";
 import AppLayout from "@/components/layout/dashboard/AppLayout";
+import { useRouter } from "next/router";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 const DashboardPage = () => {
   return (

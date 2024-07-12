@@ -30,3 +30,17 @@ export const useNewHostelMutation = () => {
     },
   });
 };
+
+export const useUpdateHostelMutation = () => {
+  return useMutation({
+    mutationFn: async ({ id, payload, file }) => {
+      if (file) {
+        const _res = await directus.files.createOne(file);
+        payload.thumbnail = _res.id;
+      }
+
+      const res = await directus.items(collection).updateOne(id, payload);
+      return res;
+    },
+  });
+};

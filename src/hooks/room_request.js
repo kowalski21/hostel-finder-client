@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { directus } from "../lib";
 
 const collection = "room_request";
@@ -17,5 +17,13 @@ export const useRoomRequest = (id, queryKey, query, options = {}) => {
     queryFn: async () => directus.items(collection).readOne(id, query),
     queryKey,
     ...options,
+  });
+};
+
+export const useNewRoomRequestMutation = () => {
+  return useMutation({
+    mutationFn: async (payload) => {
+      return directus.items(collection).createOne(payload);
+    },
   });
 };

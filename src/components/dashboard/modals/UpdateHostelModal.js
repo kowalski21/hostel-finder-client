@@ -2,37 +2,43 @@ import SelectStatus from "@/components/forms/SelectStatus";
 import SelectUsers from "@/components/forms/SelectUsers";
 import { useFile } from "@/hooks/file";
 import { useForm } from "@/hooks/form";
-import { useNewHostelMutation } from "@/hooks/hostels";
+import { useNewHostelMutation, useUpdateHostelMutation } from "@/hooks/hostels";
 import React, { Fragment, useState } from "react";
 import { FormLabel } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { Modal, Button, ButtonToolbar, Placeholder, Grid, Col, Row, Input } from "rsuite";
 import { useBoolean } from "usehooks-ts";
-import { Plus } from "lucide-react";
+import { Plus, Settings } from "lucide-react";
 
-const HostelModal = () => {
+const UpdateHostelModal = ({ id, hostel }) => {
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
   const { form, handleChange, handleExtra, handleSuite, resetForm } = useForm({
-    name: "",
-    thumbnail: null,
-    town: "",
-    city: "Kumasi",
-    status: "draft",
+    name: hostel?.name,
+    thumbnail: hostel?.thumbnail,
+    town: hostel?.town,
+    city: hostel?.city,
+    status: hostel?.status,
+    manager: hostel?.manager?.id,
   });
   const { prepFile, file, fileCheck, handleFile } = useFile();
-  const mutation = useNewHostelMutation();
+  const mutation = useUpdateHostelMutation();
 
   const handleSubmit = () => {
+    let filePayload = null;
     // console.log(file);
+    if (file) {
+      filePayload = prepFile();
+    }
     mutation.mutate(
-      { payload: form, file: prepFile() },
+      { payload: form, file: filePayload, id },
       {
         onError: (e) => {
           console.log(e);
         },
         onSuccess: () => {
           alert("it worked");
-          resetForm();
+
+          //   resetForm();
           toggle();
         },
       }
@@ -40,8 +46,9 @@ const HostelModal = () => {
   };
   return (
     <Fragment>
-      <a className="btn btn-sm btn-dark me-2" onClick={toggle}>
-        <Plus size={12} /> New Hostel
+      <a className="btn btn-sm btn-dark me-2 " onClick={toggle}>
+        <Settings className="me-2" size={15} />
+        Update
       </a>
 
       <Modal open={value} onClose={toggle} backdrop="static">
@@ -72,21 +79,20 @@ const HostelModal = () => {
               </div>
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Manager</FormLabel>
-                <SelectUsers keyName={"manager"} onChange={handleExtra} />
+                <SelectUsers defaultValue={form.manager} keyName={"manager"} onChange={handleExtra} />
               </div>
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Status</FormLabel>
-                <SelectStatus keyName={"status"} onChange={handleExtra} />
+                <SelectStatus defaultValue={form?.status} keyName={"status"} onChange={handleExtra} />
               </div>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          {fileCheck && (
-            <Button className="btn btn-sm btn-dark me-2" onClick={handleSubmit} appearance="primary">
-              Save
-            </Button>
-          )}
+          <Button className="btn btn-sm btn-dark me-2" onClick={handleSubmit} appearance="primary">
+            Save
+          </Button>
+
           <Button className="btn btn-sm btn-light me-2" onClick={toggle} appearance="subtle">
             Cancel
           </Button>
@@ -96,4 +102,4 @@ const HostelModal = () => {
   );
 };
 
-export default HostelModal;
+export default UpdateHostelModal;

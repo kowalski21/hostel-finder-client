@@ -2,6 +2,8 @@ import { LayoutGrid } from "lucide-react";
 import React from "react";
 import { useBoolean } from "usehooks-ts";
 import { Drawer, ButtonToolbar, Button, Placeholder } from "rsuite";
+import IconMenu from "@/components/reusable/IconMenu";
+import { menuList } from "@/lib/menu";
 
 const AppMenuDrawer = () => {
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
@@ -11,8 +13,18 @@ const AppMenuDrawer = () => {
         <LayoutGrid strokeWidth={2.2} />
       </div>
       <Drawer size={"xs"} open={value} onClose={toggle}>
+        <Drawer.Header>
+          <Drawer.Title className="fw-bolder">Menu Management</Drawer.Title>
+        </Drawer.Header>
         <Drawer.Body>
           <Placeholder.Paragraph />
+          <div className="container-fluid px-0">
+            <div className="d-flex flex-wrap">
+              {menuList.map((menu) => {
+                return <IconMenu key={menu.title} to={menu.to} title={menu.title} icon={menu.icon}></IconMenu>;
+              })}
+            </div>
+          </div>
         </Drawer.Body>
       </Drawer>
     </div>
