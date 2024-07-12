@@ -140,7 +140,7 @@ const SignUpForm = () => {
           </div>
 
           <div className="d-flex flex-stack">
-            <button className="btn btn-primary text-white me-2 flex-shrink-0" onClick={handleSubmit}>
+            <button className="btn btn-dark text-white me-2 flex-shrink-0" onClick={handleSubmit}>
               <span className="text-white">Sign Up</span>
             </button>
 

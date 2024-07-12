@@ -7,8 +7,8 @@ const SignupWrapper = ({ children }) => {
       style={{ minHeight: "100vh", backgroundColor: "#F5F5F5", color: "white" }}
     >
       <div className="d-flex flex-column flex-lg-row flex-column-fluid">
-        <a href="index.html" className="d-block d-lg-none mx-auto py-20">
-          <img alt="Logo" src="/media/logos/default.svg" className="theme-light-show h-25px" />
+        <a href="/dashboard" className="d-block d-lg-none mx-auto py-20">
+          <h3 className="fw-bold fs-8">Hostel Finder</h3>
         </a>
 
         <div className="d-flex flex-column flex-column-fluid flex-center w-lg-50 p-10">
