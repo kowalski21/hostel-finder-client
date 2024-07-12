@@ -49,7 +49,7 @@ const NewRoomRequestDrawer = ({ room, hostelId = 1 }) => {
         <Drawer.Body>
           <Placeholder.Paragraph />
           <div className="container px-0 mx-0">
-            {JSON.stringify({ form: form.room })}
+            {/* {JSON.stringify({ form: form.room })} */}
             <div className="row">
               <div className="col-12 mb-5">
                 <FormLabel className="required">Customer (Student)</FormLabel>

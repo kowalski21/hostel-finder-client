@@ -48,13 +48,13 @@ const RoomCard = ({ room, hostelId }) => {
 
         <div class="separator separator-dashed my-3"></div>
 
-        <div class="d-flex flex-stack">
+        {/* <div class="d-flex flex-stack">
           <div class="text-gray-700 fw-semibold fs-6 me-2">Room Status</div>
 
           <div class="d-flex align-items-senter">
             <span class="text-gray-900 fw-bold fs-6 text-uppercase">{room.status}</span>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="separator"></div>
       <div className="card-footer d-flex flex-stack">

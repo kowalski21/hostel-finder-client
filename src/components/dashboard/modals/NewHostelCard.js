@@ -1,5 +1,6 @@
 import React from "react";
 import HostelModal from "./HostelModal";
+import Link from "next/link";
 
 const NewHostelCard = () => {
   return (
@@ -14,10 +15,9 @@ const NewHostelCard = () => {
 
       <div class="text-center mb-1">
         <HostelModal />
-
-        <a class="btn btn-sm btn-light" href="apps/user-management/users/view.html">
-          View Hostels
-        </a>
+        <Link href={`/dashboard/hostels`} legacyBehavior>
+          <a class="btn btn-sm btn-light">View Hostels</a>
+        </Link>
       </div>
     </div>
   );

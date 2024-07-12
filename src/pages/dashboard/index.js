@@ -5,14 +5,16 @@ import RoomRequestWidget from "@/components/dashboard/widgets/RoomRequestWidget"
 import TenantWidget from "@/components/dashboard/widgets/TenantWidget";
 import UsersWidget from "@/components/dashboard/widgets/UsersWidget";
 import AppLayout from "@/components/layout/dashboard/AppLayout";
+import { useAuthUser } from "@/store/auth";
 import { useRouter } from "next/router";
 
 import React, { useEffect } from "react";
 
 const DashboardPage = () => {
+  const user = useAuthUser();
   return (
     <AppLayout>
-      <h3 className="text-gray-600">Hi, Devops</h3>
+      {user && <h3 className="text-gray-600">Hi, {user.first_name}</h3>}
 
       <div className="row mt-10">
         <div class="col-xl-3 col-md-6">

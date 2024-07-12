@@ -52,11 +52,11 @@ const HostelCard = ({ imgUrl = "/media/stock/600x600/img-32.jpg", to, hostel }) 
       </div>
 
       <div class="card-footer d-flex flex-stack pt-0">
-        <a class="btn btn-sm btn-dark flex-shrink-0 me-2" data-bs-target="#kt_modal_bidding" data-bs-toggle="modal">
+        {/* <a class="btn btn-sm btn-dark flex-shrink-0 me-2" data-bs-target="#kt_modal_bidding" data-bs-toggle="modal">
           Manage
-        </a>
+        </a> */}
         <Link href={`/dashboard/hostels/${hostel.id}`} legacyBehavior>
-          <a class="btn btn-sm btn-light flex-shrink-0">View</a>
+          <a class="btn btn-sm btn-dark flex-shrink-0">View</a>
         </Link>
       </div>
     </div>

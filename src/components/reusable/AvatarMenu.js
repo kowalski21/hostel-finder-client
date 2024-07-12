@@ -56,30 +56,30 @@ const AvatarMenu = () => {
         <div className="separator my-2"></div>
 
         <div className="menu-item px-5">
-          <a href="account/overview.html" className="menu-link px-5">
+          <a href="#" className="menu-link px-5">
             My Profile
           </a>
         </div>
 
-        <div className="menu-item px-5">
+        {/* <div className="menu-item px-5">
           <a href="apps/projects/list.html" className="menu-link px-5">
             <span className="menu-text">My Projects</span>
             <span className="menu-badge">
               <span className="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
             </span>
           </a>
-        </div>
+        </div> */}
 
         <div className="menu-item px-5">
-          <a href="account/statements.html" className="menu-link px-5">
-            My Statements
+          <a href="#" className="menu-link px-5">
+            My Hostels
           </a>
         </div>
 
         <div className="separator my-2"></div>
 
         <div className="menu-item px-5 my-1">
-          <a href="account/settings.html" className="menu-link px-5">
+          <a href="#" className="menu-link px-5">
             Account Settings
           </a>
         </div>

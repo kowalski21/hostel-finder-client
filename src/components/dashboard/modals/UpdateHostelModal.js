@@ -58,7 +58,7 @@ const UpdateHostelModal = ({ id, hostel }) => {
         <div className="separator my-2"></div>
         <Modal.Body>
           <div className="container-fluid mx-0 px-0">
-            {JSON.stringify({ form, file })}
+            {/* {JSON.stringify({ form, file })} */}
             <div className="row">
               <div className="col-12">
                 <FormLabel className="required fw-bolder">Name</FormLabel>
