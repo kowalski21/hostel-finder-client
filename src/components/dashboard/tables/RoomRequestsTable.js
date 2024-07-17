@@ -1,5 +1,6 @@
 import { assetUrl } from "@/lib/asset";
 import React from "react";
+import AddPaymentDrawer from "../drawer/AddPaymentDrawer";
 
 const RoomRequestsTable = ({ room_requests = [] }) => {
   return (
@@ -21,12 +22,12 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
           <table className="table align-middle gs-0 gy-4">
             <thead>
               <tr className="fw-bold text-white bg-dark">
-                <th className="ps-4 min-w-325px rounded-start">Customer</th>
+                <th className="ps-4 min-w-125px rounded-start">Customer</th>
                 <th className="min-w-125px">Hostel</th>
                 <th className="min-w-125px">Room</th>
                 <th className="min-w-200px">Hostel Manager</th>
                 <th className="min-w-150px">Payment Status</th>
-                <th className="min-w-200px text-end rounded-end"></th>
+                <th className="min-w-200px rounded-end">Actions</th>
               </tr>
             </thead>
 
@@ -84,10 +85,9 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
                         <span className="badge badge-light-dark fs-7 fw-bold">Pending</span>
                       )}
                     </td>
-                    <td className="text-end">
-                      <a href="#" className="btn  btn-bg-dark text-white btn-sm me-1">
-                        View
-                      </a>
+                    <td className="">
+                      <AddPaymentDrawer item={item} />
+                      <button className="btn btn-sm btn-light mx-2">View</button>
                     </td>
                   </tr>
                 );

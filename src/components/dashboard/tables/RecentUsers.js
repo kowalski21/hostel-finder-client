@@ -2,7 +2,7 @@ import { useUsers } from "@/hooks/users";
 import { assetUrl } from "@/lib/asset";
 import { ArrowRight } from "lucide-react";
 import React from "react";
-
+import Link from "next/link";
 const RecentUsers = () => {
   const { isLoading, data } = useUsers(["RecentUsers"], { fields: "*,role.id,role.name" });
   return (
@@ -60,9 +60,11 @@ const RecentUsers = () => {
                     </td>
 
                     <td class="text-end">
-                      <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                        <ArrowRight size={16} />
-                      </a>
+                      <Link href={`/dashboard/profile/${user.id}`} legacyBehavior>
+                        <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
+                          <ArrowRight size={16} />
+                        </a>
+                      </Link>
                     </td>
                   </tr>
                 );

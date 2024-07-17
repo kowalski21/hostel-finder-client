@@ -1,11 +1,12 @@
 import { directus } from "@/lib";
 import { assetUrl } from "@/lib/asset";
 import { useAuthUser } from "@/store/auth";
+import { LineChart } from "lucide-react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useMutation } from "react-query";
 import { useBoolean } from "usehooks-ts";
-
+import Link from "next/link";
 const AvatarMenu = () => {
   const user = useAuthUser();
   const router = useRouter();
@@ -56,9 +57,9 @@ const AvatarMenu = () => {
         <div className="separator my-2"></div>
 
         <div className="menu-item px-5">
-          <a href="#" className="menu-link px-5">
-            My Profile
-          </a>
+          <Link href={`/dashboard/profile/${user?.id}`} legacyBehavior>
+            <a className="menu-link px-5">My Profile</a>
+          </Link>
         </div>
 
         {/* <div className="menu-item px-5">
@@ -71,9 +72,9 @@ const AvatarMenu = () => {
         </div> */}
 
         <div className="menu-item px-5">
-          <a href="#" className="menu-link px-5">
-            My Hostels
-          </a>
+          <Link href={`/dashboard/profile/${user?.id}/hostels`} legacyBehavior>
+            <a className="menu-link px-5">My Hostels</a>
+          </Link>
         </div>
 
         <div className="separator my-2"></div>

@@ -4,7 +4,7 @@
 
 
 *{
-  font-family:'Circular Std' ;
+  font-family:'Lexend' ;
 
 }
 /* transform: translate3d(-110.5px, 45px, 0px); */
@@ -27,4 +27,9 @@
     transform: rotate(360deg);
   }
 }
+}
+
+
+.img-center {
+  object-fit: cover;
 }

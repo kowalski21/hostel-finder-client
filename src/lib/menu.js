@@ -1,4 +1,4 @@
-import { Grid, LayoutGrid, Landmark, Droplets } from "lucide-react";
+import { Grid, LayoutGrid, Landmark, Droplets, Users } from "lucide-react";
 
 export const menuList = [
   {
@@ -15,5 +15,10 @@ export const menuList = [
     to: "/dashboard/room_request",
     title: "Room Requests",
     icon: <Droplets className="text-white mb-5 mt-5" size={30} />,
+  },
+  {
+    to: "/dashboard/settings/users",
+    title: "Users",
+    icon: <Users className="text-white mb-5 mt-5" size={30} />,
   },
 ];

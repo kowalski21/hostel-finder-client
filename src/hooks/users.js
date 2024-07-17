@@ -18,3 +18,13 @@ export const useUser = (id, queryKey, query, options = {}) => {
     ...options,
   });
 };
+
+export const useRoles = (queryKey, query, options = {}) => {
+  return useQuery({
+    queryKey,
+    queryFn: async () => {
+      return directus.roles.readByQuery(query);
+    },
+    ...options,
+  });
+};
