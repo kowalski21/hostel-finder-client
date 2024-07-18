@@ -3,8 +3,10 @@ import React from "react";
 import AddPaymentDrawer from "../drawer/AddPaymentDrawer";
 import Link from "next/link";
 import BookingCancel from "@/components/booking/BookingCancel";
+import { usePerms } from "@/hooks/perm";
 
 const RoomRequestsTable = ({ room_requests = [] }) => {
+  const { IsOwner } = usePerms();
   const isValid = (status) => {
     if (["archived"].includes(status)) {
       return false;
@@ -101,7 +103,9 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
                           <button className="btn btn-sm btn-light mx-2">View</button>
                         </Link>
                       )}
-                      {!item.paid && isValid(item.status) && <BookingCancel id={item.id} />}
+                      {!item.paid && isValid(item.status) && IsOwner(item.hostel.manager.id) && (
+                        <BookingCancel id={item.id} />
+                      )}
                     </td>
                   </tr>
                 );

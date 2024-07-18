@@ -26,7 +26,16 @@ export const usePerms = () => {
     }
   };
 
+  const isAdmin = () => {
+    // console.log(user);
+    if (["Administrator"].includes(user?.role.name)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   useEffect(() => {}, [user]);
 
-  return { IsOwner, isManager };
+  return { IsOwner, isManager, isAdmin };
 };

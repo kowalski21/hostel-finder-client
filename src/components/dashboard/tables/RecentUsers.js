@@ -3,7 +3,11 @@ import { assetUrl } from "@/lib/asset";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import Link from "next/link";
+
+import { usePerms } from "@/hooks/perm";
+
 const RecentUsers = () => {
+  const { isAdmin } = usePerms();
   const { isLoading, data } = useUsers(["RecentUsers"], { fields: "*,role.id,role.name" });
   return (
     <div class="card h-xl-100">
@@ -59,13 +63,15 @@ const RecentUsers = () => {
                       <span class="text-gray-900 fw-bold d-block fs-7">{user.email}</span>
                     </td>
 
-                    <td class="text-end">
-                      <Link href={`/dashboard/profile/${user.id}`} legacyBehavior>
-                        <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                          <ArrowRight size={16} />
-                        </a>
-                      </Link>
-                    </td>
+                    {isAdmin() && (
+                      <td class="text-end">
+                        <Link href={`/dashboard/profile/${user.id}`} legacyBehavior>
+                          <a href="#" class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
+                            <ArrowRight size={16} />
+                          </a>
+                        </Link>
+                      </td>
+                    )}
                   </tr>
                 );
               })}
