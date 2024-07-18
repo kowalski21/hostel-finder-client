@@ -46,7 +46,7 @@ const SelectUsers = ({ defaultValue = null, onChange = null, keyName }) => {
   const { data, isLoading } = useUsers(["ManagerUsers"], { fields: "*,role.id,role.name" });
   return (
     <SelectPicker
-      disabled={isManager() ? false : true}
+      disabled={isManager() ? true : false}
       renderValue={renderUser}
       block
       value={value}
