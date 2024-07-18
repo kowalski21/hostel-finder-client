@@ -7,7 +7,7 @@ const MyHostelsListContainer = ({ user }) => {
   const query = { fields: "*,manager.id,manager.avatar", filter: { manager: user.id } };
   const { data, isLoading } = useHostels(["MyHostels", query], query);
   return (
-    <div className="row">
+    <div className="row mt-5">
       {isLoading && <Loader center vertical />}
 
       {data &&

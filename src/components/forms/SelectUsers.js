@@ -1,3 +1,4 @@
+import { usePerms } from "@/hooks/perm";
 import { useUsers } from "@/hooks/users";
 import { assetUrl } from "@/lib/asset";
 import React, { useState } from "react";
@@ -34,6 +35,7 @@ const renderUser = (value, item, selectedElement) => {
 };
 
 const SelectUsers = ({ defaultValue = null, onChange = null, keyName }) => {
+  const { isManager } = usePerms();
   const [value, setValue] = useState(defaultValue);
   const handleChange = (item) => {
     if (onChange) {
@@ -44,6 +46,7 @@ const SelectUsers = ({ defaultValue = null, onChange = null, keyName }) => {
   const { data, isLoading } = useUsers(["ManagerUsers"], { fields: "*,role.id,role.name" });
   return (
     <SelectPicker
+      disabled={isManager() ? false : true}
       renderValue={renderUser}
       block
       value={value}

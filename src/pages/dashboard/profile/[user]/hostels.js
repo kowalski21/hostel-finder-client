@@ -1,3 +1,4 @@
+import HostelModal from "@/components/dashboard/modals/HostelModal";
 import MyHostelsListContainer from "@/components/hostels/MyHostelsListContainer";
 import AppLayout from "@/components/layout/dashboard/AppLayout";
 import UserFormCard from "@/components/users/UserFormCard";
@@ -25,6 +26,7 @@ const UserHostelsPage = () => {
           <div className="row">
             {user && (
               <div className="col-12">
+                <HostelModal />
                 <MyHostelsListContainer user={user} />
               </div>
             )}

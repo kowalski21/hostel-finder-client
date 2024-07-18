@@ -9,8 +9,12 @@ import { useMutation } from "react-query";
 import { Modal, Button, ButtonToolbar, Placeholder, Grid, Col, Row, Input } from "rsuite";
 import { useBoolean } from "usehooks-ts";
 import { Plus } from "lucide-react";
+import { usePerms } from "@/hooks/perm";
+import { useAuthUser } from "@/store/auth";
 
 const HostelModal = () => {
+  const authUser = useAuthUser();
+
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
   const { form, handleChange, handleExtra, handleSuite, resetForm } = useForm({
     name: "",
@@ -18,12 +22,14 @@ const HostelModal = () => {
     town: "",
     city: "Kumasi",
     status: "draft",
+    manager: authUser.id,
   });
   const { prepFile, file, fileCheck, handleFile } = useFile();
   const mutation = useNewHostelMutation();
 
   const handleSubmit = () => {
     // console.log(file);
+    // console.log(form);
     mutation.mutate(
       { payload: form, file: prepFile() },
       {
@@ -51,7 +57,7 @@ const HostelModal = () => {
         <div className="separator my-2"></div>
         <Modal.Body>
           <div className="container-fluid mx-0 px-0">
-            {/* {JSON.stringify({ form, file })} */}
+            {JSON.stringify({ form, file })}
             <div className="row">
               <div className="col-12">
                 <FormLabel className="required fw-bolder">Name</FormLabel>
@@ -72,7 +78,7 @@ const HostelModal = () => {
               </div>
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Manager</FormLabel>
-                <SelectUsers keyName={"manager"} onChange={handleExtra} />
+                <SelectUsers defaultValue={authUser.id} keyName={"manager"} onChange={handleExtra} />
               </div>
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Status</FormLabel>

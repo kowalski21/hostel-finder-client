@@ -37,5 +37,5 @@ export const usePerms = () => {
 
   useEffect(() => {}, [user]);
 
-  return { IsOwner, isManager, isAdmin };
+  return { IsOwner, isManager, isAdmin, authUser: user };
 };
