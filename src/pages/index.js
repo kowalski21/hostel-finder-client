@@ -7,9 +7,11 @@ import { useAuthUser } from "@/store/auth";
 import { useAuthHook } from "@/hooks/auth";
 import { useHostels } from "@/hooks/hostels";
 import HostelCard from "@/components/dashboard/card/HostelCard";
+import { usePerms } from "@/hooks/perm";
 
 const Home = () => {
   const { isLoading: loading, data: userInfo } = useAuthHook();
+  const { isManager, IsOwner } = usePerms();
   const router = useRouter();
   const user = useAuthUser();
   const [search, setSearch] = useState("");
@@ -38,8 +40,16 @@ const Home = () => {
             </h3>
             <p className="text-muted">Find, Book a Hostel with ease</p>
             <div className="separator text-dark mb-5"></div>
-            <button className="btn btn-dark btn-sm me-2">Login</button>
-            <button className="btn btn-dark btn-sm">Dashboard</button>
+            {/* <button className="btn btn-dark btn-sm me-2">Login</button> */}
+            {isManager() ? (
+              <Link href={`/dashboard`}>
+                <button className="btn btn-dark btn-sm">Dashboard</button>
+              </Link>
+            ) : (
+              <Link href={`/dashboard/profile/${user.id}`}>
+                <button className="btn btn-dark btn-sm">My Dashboard</button>
+              </Link>
+            )}
           </div>
         </div>
         <div className="row mt-5">

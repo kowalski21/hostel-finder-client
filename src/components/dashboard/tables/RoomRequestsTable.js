@@ -1,8 +1,17 @@
 import { assetUrl } from "@/lib/asset";
 import React from "react";
 import AddPaymentDrawer from "../drawer/AddPaymentDrawer";
+import Link from "next/link";
+import BookingCancel from "@/components/booking/BookingCancel";
 
 const RoomRequestsTable = ({ room_requests = [] }) => {
+  const isValid = (status) => {
+    if (["archived"].includes(status)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   return (
     <div className="card mb-5 mb-xl-8">
       <div className="card-header border-0 pt-5">
@@ -87,7 +96,12 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
                     </td>
                     <td className="">
                       <AddPaymentDrawer item={item} />
-                      <button className="btn btn-sm btn-light mx-2">View</button>
+                      {isValid(item.status) && (
+                        <Link href={`/dashboard/room_request/${item.id}`}>
+                          <button className="btn btn-sm btn-light mx-2">View</button>
+                        </Link>
+                      )}
+                      {!item.paid && isValid(item.status) && <BookingCancel id={item.id} />}
                     </td>
                   </tr>
                 );

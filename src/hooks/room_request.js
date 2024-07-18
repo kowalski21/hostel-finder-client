@@ -23,6 +23,9 @@ export const useRoomRequest = (id, queryKey, query, options = {}) => {
 export const useNewRoomRequestMutation = () => {
   return useMutation({
     mutationFn: async (payload) => {
+      if (!payload.customer) {
+        throw new Error(`Select Customer booking the room`);
+      }
       return directus.items(collection).createOne(payload);
     },
   });

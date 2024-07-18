@@ -9,13 +9,18 @@ import { useNewRoomMutation, useUpdateRoomMutation } from "@/hooks/room";
 import SelectUsers from "@/components/forms/SelectUsers";
 import { useNotify } from "@/hooks/notify";
 import { useNewRoomRequestMutation } from "@/hooks/room_request";
+import { useAuthUser } from "@/store/auth";
+import { assetUrl } from "@/lib/asset";
+import { usePerms } from "@/hooks/perm";
 
-const NewRoomRequestDrawer = ({ room, hostelId = 1 }) => {
+const NewRoomRequestDrawer = ({ room, hostelId, manager }) => {
+  const { isManager, IsOwner } = usePerms();
+  const authUser = useAuthUser();
   const { showError, showMsg } = useNotify();
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
   const { form, handleChange, handleSuite, handleExtra, resetForm } = useForm({
-    customer: null,
-    hostel: room.hostel,
+    customer: authUser.id,
+    hostel: hostelId,
     note: room.note || "",
     room_price: room.price,
     status: "published",
@@ -23,6 +28,12 @@ const NewRoomRequestDrawer = ({ room, hostelId = 1 }) => {
   });
   const mutation = useNewRoomRequestMutation();
   const handleSubmit = () => {
+    console.log(hostelId);
+    if (!IsOwner(manager.id)) {
+      form.customer = authUser.id;
+      // console.log("Is from Customer");
+      // console.log(form);
+    }
     // console.log(form);
     // console.log(room.hostel);
     // form.hostel = hostelId;
@@ -48,59 +59,73 @@ const NewRoomRequestDrawer = ({ room, hostelId = 1 }) => {
         </Drawer.Header>
         <Drawer.Body>
           <Placeholder.Paragraph />
-          <div className="container px-0 mx-0">
-            {/* {JSON.stringify({ form: form.room })} */}
-            <div className="row">
-              <div className="col-12 mb-5">
-                <FormLabel className="required">Customer (Student)</FormLabel>
-                <SelectUsers defaultValue={form.customer} keyName={"customer"} onChange={handleExtra} />
-              </div>
-              <div className="col-6 mb-5">
-                <FormLabel className="required">Room Number</FormLabel>
-                <Input
-                  disabled
-                  value={room.name}
-                  onChange={handleSuite("room_type")}
-                  placeholder="Type of room can 1,2 or 3"
-                  size="lg"
-                />
-              </div>
-              <div className="col-6 mb-5">
-                <FormLabel className="required">Room Price</FormLabel>
-                <Input
-                  disabled
-                  value={form.room_price}
-                  onChange={handleSuite("price")}
-                  type="number"
-                  min={1}
-                  size="lg"
-                />
-              </div>
-              <div className="col-12 mb-5">
-                <FormLabel className="">Note</FormLabel>
-                <Input
-                  value={form.description}
-                  onChange={handleSuite("description")}
-                  as="textarea"
-                  rows={3}
-                  placeholder="Notes"
-                />
-              </div>
-              <div className="separator my-5"></div>
-              <div className="col-12">
-                <div className="d-flex flex-stack">
-                  {form.customer && (
-                    <button className="btn btn-sm btn-dark" onClick={handleSubmit}>
-                      Save
-                    </button>
+          {authUser && (
+            <div className="container px-0 mx-0">
+              {/* {JSON.stringify({ form: form.room })} */}
+              <div className="row">
+                <div className="col-12 mb-5">
+                  <FormLabel className="required">Customer (Student)</FormLabel>
+
+                  {IsOwner(manager.id) ? (
+                    <SelectUsers defaultValue={form.customer} keyName={"customer"} onChange={handleExtra} />
+                  ) : (
+                    <div className="d-flex">
+                      <img src={assetUrl(authUser.avatar)} className="w-50px h-50px img-center rounded" alt="" />
+                      <div className="mx-5">
+                        <span className="fs-6 fw-bolder">{authUser.first_name}</span>
+                        <br />
+                        <span className="text-small">{authUser.role?.name}</span>
+                      </div>
+                    </div>
                   )}
-                  <button className="btn btn-sm btn-light" onClick={toggle}>
-                    Cancel
-                  </button>
+                </div>
+                <div className="col-6 mb-5">
+                  <FormLabel className="required">Room Number</FormLabel>
+                  <Input
+                    disabled
+                    value={room.name}
+                    onChange={handleSuite("room_type")}
+                    placeholder="Type of room can 1,2 or 3"
+                    size="lg"
+                  />
+                </div>
+                <div className="col-6 mb-5">
+                  <FormLabel className="required">Room Price</FormLabel>
+                  <Input
+                    disabled
+                    value={form.room_price}
+                    onChange={handleSuite("price")}
+                    type="number"
+                    min={1}
+                    size="lg"
+                  />
+                </div>
+                <div className="col-12 mb-5">
+                  <FormLabel className="">Note</FormLabel>
+                  <Input
+                    value={form.description}
+                    onChange={handleSuite("description")}
+                    as="textarea"
+                    rows={3}
+                    placeholder="Notes"
+                  />
+                </div>
+                <div className="separator my-5"></div>
+                <div className="col-12">
+                  <div className="d-flex flex-stack">
+                    {form.customer && (
+                      <button className="btn btn-sm btn-dark" onClick={handleSubmit}>
+                        Save
+                      </button>
+                    )}
+                    <button className="btn btn-sm btn-light" onClick={toggle}>
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </Drawer.Body>
       </Drawer>
     </div>

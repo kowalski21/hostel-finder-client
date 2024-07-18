@@ -4,8 +4,10 @@ import React from "react";
 import Link from "next/link";
 import UpdateHostelModal from "../modals/UpdateHostelModal";
 import AddRoomDrawer from "../drawer/AddRoomDrawer";
+import { usePerms } from "@/hooks/perm";
 
 const HostelDetailCard = ({ hostelId, imgUrl = "/media/stock/600x600/img-32.jpg" }) => {
+  const { IsOwner, isManager } = usePerms();
   const query = { fields: "*,manager.id,manager.first_name,manager.last_name,manager.avatar" };
   const { data: hostel, isLoading } = useHostel(hostelId, ["HostelDetail", hostelId, query], query);
   return (
@@ -58,10 +60,10 @@ const HostelDetailCard = ({ hostelId, imgUrl = "/media/stock/600x600/img-32.jpg"
               </span>
             </div>
           </div>
-          <div className="separator mt-2"></div>
+          {IsOwner(hostel.manager.id) && <div className="separator mt-2"></div>}
           <div class=" d-flex flex-stack mt-5">
-            <UpdateHostelModal id={hostel.id} hostel={hostel} />
-            <AddRoomDrawer hostelId={hostel.id} />
+            {IsOwner(hostel.manager.id) && <UpdateHostelModal id={hostel.id} hostel={hostel} />}
+            {IsOwner(hostel.manager.id) && <AddRoomDrawer hostelId={hostel.id} />}
           </div>
         </div>
       )}

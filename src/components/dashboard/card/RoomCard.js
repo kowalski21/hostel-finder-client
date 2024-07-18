@@ -4,8 +4,10 @@ import { Popover, Whisper, Button, Dropdown } from "rsuite";
 import { LayoutGrid, ListTodo } from "lucide-react";
 import RoomUpdateDrawer from "../drawer/RoomUpdateDrawer";
 import NewRoomRequestDrawer from "../drawer/NewRoomRequestDrawer";
+import { usePerms } from "@/hooks/perm";
 
-const RoomCard = ({ room, hostelId }) => {
+const RoomCard = ({ room, hostelId, manager }) => {
+  const { IsOwner } = usePerms();
   return (
     <div class="card card-flush h-lg-100 mb-5">
       <div class="card-header pt-5">
@@ -22,10 +24,11 @@ const RoomCard = ({ room, hostelId }) => {
             <Settings size={9} /> Update
           </button> */}
 
-          <RoomUpdateDrawer room={room} hostelId={hostelId} />
+          {IsOwner(manager.id) && <RoomUpdateDrawer room={room} hostelId={hostelId} />}
         </div>
       </div>
       <div className="separator"></div>
+      {/* {JSON.stringify({ hostelId, room })} */}
 
       <div class="card-body pt-5">
         <div class="d-flex flex-stack">
@@ -62,7 +65,7 @@ const RoomCard = ({ room, hostelId }) => {
           <Settings size={9} /> Tenants
         </button>
 
-        <NewRoomRequestDrawer room={room} />
+        <NewRoomRequestDrawer hostelId={hostelId} room={room} manager={manager} />
         {/* <button className="btn btn-dark btn-sm">
           <Settings size={9} /> Book Room
         </button> */}

@@ -24,7 +24,7 @@ const LoginForm = () => {
     },
     onSuccess: (data) => {
       showMsg(`User Login Success`);
-      router.push(`/dashboard`);
+      router.push(`/`);
     },
   });
 

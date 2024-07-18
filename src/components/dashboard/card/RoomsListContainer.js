@@ -4,7 +4,7 @@ import { Loader } from "rsuite";
 import { useRooms } from "@/hooks/room";
 
 const RoomsListContainer = ({ hosteId }) => {
-  const query = { fields: "*", filter: { hostel: hosteId } };
+  const query = { fields: "*,hostel.id,hostel.manager.id", filter: { hostel: hosteId } };
   const queryKey = ["RoomsHostel", hosteId, query];
   const { data, isLoading } = useRooms(queryKey, query);
   return (
@@ -21,7 +21,7 @@ const RoomsListContainer = ({ hosteId }) => {
         data?.data.map((room) => {
           return (
             <div className="col-md-4 mb-5" key={room.id}>
-              <RoomCard room={room} hosteId={hosteId} />
+              <RoomCard room={room} hostelId={room.hostel.id} manager={room.hostel.manager} />
             </div>
           );
         })}
