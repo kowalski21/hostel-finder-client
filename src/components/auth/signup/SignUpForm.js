@@ -1,7 +1,9 @@
+import SelectRoles from "@/components/forms/SelectRoles";
 import { useNotify } from "@/hooks/notify";
 import { directus } from "@/lib";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { FormLabel } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { Uploader } from "rsuite";
 const SignUpForm = () => {
@@ -16,6 +18,9 @@ const SignUpForm = () => {
   });
   const handleChange = (keyName) => (e) => {
     setValues({ ...values, [keyName]: e.target.value });
+  };
+  const handleRole = (keyName, val) => {
+    setValues({ ...values, [keyName]: val });
   };
 
   const [file, setFile] = useState("");
@@ -111,6 +116,12 @@ const SignUpForm = () => {
                 autocomplete="off"
                 className="form-control form-control-lg"
               />
+            </div>
+          </div>
+          <div className="row mt-5">
+            <div className="col-12">
+              <FormLabel className="required">Role</FormLabel>
+              <SelectRoles onChange={handleRole} keyName={"role"} className="text-dark" defaultValue={values.role} />
             </div>
           </div>
           <div className="row fv-row mt-4">
