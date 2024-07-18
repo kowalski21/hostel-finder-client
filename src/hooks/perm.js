@@ -19,7 +19,7 @@ export const usePerms = () => {
 
   const isManager = () => {
     // console.log(user);
-    if (["Administrator", "Manager"].includes(user?.role.name)) {
+    if (["Administrator", "Manager"].includes(user?.role?.name)) {
       return true;
     } else {
       return false;
@@ -28,7 +28,7 @@ export const usePerms = () => {
 
   const isAdmin = () => {
     // console.log(user);
-    if (["Administrator"].includes(user?.role.name)) {
+    if (["Administrator"].includes(user?.role?.name)) {
       return true;
     } else {
       return false;
