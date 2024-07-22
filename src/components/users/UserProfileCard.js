@@ -5,6 +5,7 @@ import React from "react";
 import { Loader } from "rsuite";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import UserLinkItem from "./UserLinkItem";
 const UserProfileCard = ({ userId }) => {
   const query = { fields: "*,role.id,role.name" };
   const { data: user, isLoading } = useUser(userId, ["UserProfile", userId, query], query);
@@ -53,6 +54,7 @@ const UserProfileCard = ({ userId }) => {
                   </a>
                 </Link>
               </li>
+              <UserLinkItem title={`Room Requests`} url={`/dashboard/profile/${user.id}/room_request`} />
             </ul>
           </div>
         </div>

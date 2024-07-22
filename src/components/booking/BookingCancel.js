@@ -28,7 +28,7 @@ const BookingCancel = ({ id }) => {
   };
   return (
     <Fragment>
-      <button className="btn btn-danger btn-sm" onClick={toggle}>
+      <button className="btn btn-danger btn-sm fs-8" onClick={toggle}>
         Cancel
       </button>
       <Modal open={value} onClose={toggle}>

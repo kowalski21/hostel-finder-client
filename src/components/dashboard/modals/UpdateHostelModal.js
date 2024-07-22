@@ -46,8 +46,7 @@ const UpdateHostelModal = ({ id, hostel }) => {
   };
   return (
     <Fragment>
-      <a className="btn btn-sm btn-dark me-2 " onClick={toggle}>
-        <Settings className="me-2" size={15} />
+      <a className="btn btn-sm btn-dark me-2 fs-8 " onClick={toggle}>
         Update
       </a>
 

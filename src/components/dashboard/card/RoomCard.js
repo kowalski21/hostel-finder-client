@@ -5,6 +5,7 @@ import { LayoutGrid, ListTodo } from "lucide-react";
 import RoomUpdateDrawer from "../drawer/RoomUpdateDrawer";
 import NewRoomRequestDrawer from "../drawer/NewRoomRequestDrawer";
 import { usePerms } from "@/hooks/perm";
+import TenantsDrawer from "../drawer/TenantsDrawer";
 
 const RoomCard = ({ room, hostelId, manager }) => {
   const { IsOwner } = usePerms();
@@ -35,7 +36,7 @@ const RoomCard = ({ room, hostelId, manager }) => {
           <div class="text-gray-700 fw-semibold fs-6 me-2">No of Occupants</div>
 
           <div class="d-flex align-items-senter">
-            <span class="text-gray-900 fw-bolder fs-6">{room.tenant_no}</span>
+            <span class="text-gray-900 fw-bolder fs-6">{room.tenants.length}</span>
           </div>
         </div>
 
@@ -61,9 +62,7 @@ const RoomCard = ({ room, hostelId, manager }) => {
       </div>
       <div className="separator"></div>
       <div className="card-footer d-flex flex-stack">
-        <button className="btn btn-dark btn-sm">
-          <Settings size={9} /> Tenants
-        </button>
+        <TenantsDrawer hostelId={hostelId} room={room} manager={manager} />
 
         <NewRoomRequestDrawer hostelId={hostelId} room={room} manager={manager} />
         {/* <button className="btn btn-dark btn-sm">

@@ -50,8 +50,8 @@ const NewRoomRequestDrawer = ({ room, hostelId, manager }) => {
   };
   return (
     <div>
-      <button className="btn btn-dark btn-sm" onClick={() => toggle()}>
-        <Settings size={9} /> Book Room
+      <button className="btn btn-dark btn-sm fs-8" onClick={() => toggle()}>
+        Book Room
       </button>
       <Drawer size={"xs"} open={value} onClose={() => toggle()} backdrop="static">
         <Drawer.Header>

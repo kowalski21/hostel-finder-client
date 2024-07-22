@@ -3,6 +3,7 @@ import { directus } from "@/lib";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
+import { Button } from "rsuite";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -80,9 +81,13 @@ const LoginForm = () => {
           </div>
 
           <div className="d-flex flex-stack">
-            <button className="btn btn-dark text-white me-2 flex-shrink-0" onClick={handleSubmit}>
-              <span className="text-white">Sign In</span>
-            </button>
+            <Button
+              className="btn btn-dark text-white me-2 flex-shrink-0"
+              loading={mutation.isLoading}
+              onClick={handleSubmit}
+            >
+              Sign In
+            </Button>
 
             {/* <div className="d-flex align-items-center">
               <div className="text-gray-500 fw-semibold fs-6 me-3 me-md-6">Or</div>

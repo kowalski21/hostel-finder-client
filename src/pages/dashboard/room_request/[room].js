@@ -7,7 +7,7 @@ import React from "react";
 import { Loader } from "rsuite";
 
 const RoomRequestDetailPage = () => {
-  const query = { fields: "*,customer.*,hostel.*,room.*" };
+  const query = { fields: "*,customer.*,hostel.*,room.*,payment.*" };
   const router = useRouter();
   const { room } = router.query;
   const { data, isLoading } = useRoomRequest(room, ["RoomRequestDetail", room], query, {
@@ -16,6 +16,7 @@ const RoomRequestDetailPage = () => {
   return (
     <AppLayout>
       {/* <h3>Room Request Detail, {room}</h3> */}
+
       {isLoading && (
         <div className="row">
           <div className="col-12">
@@ -25,8 +26,14 @@ const RoomRequestDetailPage = () => {
       )}
       {data && (
         <div className="row mt-10">
-          <div className="col-md-12 mb-5">
-            <BookingCard item={data} customer={data.customer} hostel={data.hostel} room={data.room} />
+          <div className="col-md-6 mb-5">
+            <BookingCard
+              item={data}
+              customer={data.customer}
+              hostel={data.hostel}
+              room={data.room}
+              payments={data.payment}
+            />
           </div>
           <div className="col-md-8">
             <div className="row">

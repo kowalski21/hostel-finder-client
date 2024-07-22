@@ -33,8 +33,8 @@ const RoomUpdateDrawer = ({ room, hostelId }) => {
   };
   return (
     <div>
-      <button className="btn btn-dark btn-sm" onClick={() => toggle()}>
-        <Settings size={9} /> Update
+      <button className="btn btn-dark btn-sm fs-8" onClick={() => toggle()}>
+        Update
       </button>
       <Drawer size={"xs"} open={value} onClose={() => toggle()} backdrop="static">
         <Drawer.Header>

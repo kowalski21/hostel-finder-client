@@ -4,6 +4,8 @@ import AddPaymentDrawer from "../drawer/AddPaymentDrawer";
 import Link from "next/link";
 import BookingCancel from "@/components/booking/BookingCancel";
 import { usePerms } from "@/hooks/perm";
+import { getStatusColor } from "@/lib/status";
+import classNames from "classnames";
 
 const RoomRequestsTable = ({ room_requests = [] }) => {
   const { IsOwner } = usePerms();
@@ -30,14 +32,14 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
 
       <div className="card-body py-3">
         <div className="table-responsive">
-          <table className="table align-middle gs-0 gy-4">
+          <table className="table table-row-dashed align-middle gs-0 gy-4">
             <thead>
-              <tr className="fw-bold text-white bg-dark">
-                <th className="ps-4 min-w-125px rounded-start">Customer</th>
+              <tr className="fw-bold text-dark">
+                <th className="ps-4 min-w-200px rounded-start">Customer</th>
                 <th className="min-w-125px">Hostel</th>
                 <th className="min-w-125px">Room</th>
-                <th className="min-w-200px">Hostel Manager</th>
-                <th className="min-w-150px">Payment Status</th>
+                <th className="min-w-125px">Hostel Manager</th>
+                <th className="min-w-125px">Status</th>
                 <th className="min-w-200px rounded-end">Actions</th>
               </tr>
             </thead>
@@ -57,50 +59,48 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
                           />
                         </div>
                         <div className="d-flex justify-content-start flex-column">
-                          <a href="#" className="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">
+                          <a href="#" className="text-gray-900 fw-bold text-hover-primary mb-1 fs-8">
                             {item.customer?.first_name} {item.customer?.last_name}
                           </a>
-                          <span className="text-muted fw-semibold text-muted d-block fs-7">
+                          <span className="text-muted fw-semibold text-muted d-block fs-8">
                             {item?.customer?.email}
                           </span>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6">
+                      <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-8">
                         {item.hostel?.name}
                       </a>
-                      <span className="text-muted fw-semibold text-muted d-block fs-7">
+                      <span className="text-muted fw-semibold text-muted d-block fs-8">
                         {item?.hostel?.town} <span> </span>
                         {item?.hostel?.city}
                       </span>
                     </td>
                     <td>
-                      <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6">
+                      <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-8">
                         {item.room.name}
                       </a>
-                      <span className="text-muted fw-semibold text-muted d-block fs-7">GHS {item.room_price} </span>
+                      <span className="text-muted fw-semibold text-muted d-block fs-8">GHS {item.room_price} </span>
                     </td>
                     <td>
-                      <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-6">
+                      <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-8">
                         {item.hostel.manager.first_name} {item.hostel.manager.last_name}
                       </a>
-                      <span className="text-muted fw-semibold text-muted d-block fs-7">
+                      <span className="text-muted fw-semibold text-muted d-block fs-8">
                         {item.hostel.manager.email}
                       </span>
                     </td>
                     <td>
-                      {item.paid ? (
-                        <span className="badge badge-light-primary fs-7 fw-bold">Paid</span>
-                      ) : (
-                        <span className="badge badge-light-dark fs-7 fw-bold">Pending</span>
-                      )}
+                      <span className={classNames("badge  fs-8 fw-bold", getStatusColor(item.status).bgCss)}>
+                        {getStatusColor(item.status).label}
+                      </span>
                     </td>
                     <td className="">
-                      <AddPaymentDrawer item={item} />
+                      {/* <AddPaymentDrawer item={item} /> */}
                       {isValid(item.status) && (
                         <Link href={`/dashboard/room_request/${item.id}`}>
-                          <button className="btn btn-sm btn-light mx-2">View</button>
+                          <button className="btn btn-sm btn-light mx-2 fs-8">View</button>
                         </Link>
                       )}
                       {!item.paid && isValid(item.status) && IsOwner(item.hostel.manager.id) && (
