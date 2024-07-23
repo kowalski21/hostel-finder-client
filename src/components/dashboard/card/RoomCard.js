@@ -36,7 +36,7 @@ const RoomCard = ({ room, hostelId, manager }) => {
           <div class="text-gray-700 fw-semibold fs-6 me-2">No of Occupants</div>
 
           <div class="d-flex align-items-senter">
-            <span class="text-gray-900 fw-bolder fs-6">{room.tenants.length}</span>
+            <span class="text-gray-900 fw-bolder fs-6">{room.tenant_no}</span>
           </div>
         </div>
 
@@ -64,7 +64,7 @@ const RoomCard = ({ room, hostelId, manager }) => {
       <div className="card-footer d-flex flex-stack">
         <TenantsDrawer hostelId={hostelId} room={room} manager={manager} />
 
-        <NewRoomRequestDrawer hostelId={hostelId} room={room} manager={manager} />
+        {room.room_type > room.tenant_no && <NewRoomRequestDrawer hostelId={hostelId} room={room} manager={manager} />}
         {/* <button className="btn btn-dark btn-sm">
           <Settings size={9} /> Book Room
         </button> */}

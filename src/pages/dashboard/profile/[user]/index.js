@@ -1,3 +1,4 @@
+import MyTenantCard from "@/components/dashboard/card/MyTenantCard";
 import AppLayout from "@/components/layout/dashboard/AppLayout";
 import UserFormCard from "@/components/users/UserFormCard";
 import UserProfileCard from "@/components/users/UserProfileCard";
@@ -20,15 +21,18 @@ const UserProfilePage = () => {
             <UserProfileCard userId={userId} />
           </div>
         )}
-        <div className="col-md-9">
-          <div className="row">
-            {user && (
-              <div className="col-9">
+        {user && (
+          <div className="col-md-9">
+            <div className="row">
+              <div className="col-8">
                 <UserFormCard user={user} />
               </div>
-            )}
+              <div className="col-4">
+                <MyTenantCard user={user} />
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </AppLayout>
   );

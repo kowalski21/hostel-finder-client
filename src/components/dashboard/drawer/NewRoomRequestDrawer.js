@@ -39,7 +39,9 @@ const NewRoomRequestDrawer = ({ room, hostelId, manager }) => {
     // form.hostel = hostelId;
 
     mutation.mutate(form, {
-      onError: (e) => console.log(e),
+      onError: (e) => {
+        showError(e.message);
+      },
       onSuccess: (data) => {
         alert("its working");
         resetForm();

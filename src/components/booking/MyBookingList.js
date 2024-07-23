@@ -5,6 +5,7 @@ import { Loader } from "rsuite";
 import Link from "next/link";
 import classNames from "classnames";
 import { getStatusColor } from "@/lib/status";
+import { getIsoDate } from "@/lib/date";
 const MyBookingList = ({ user }) => {
   const query = { fields: "*,hostel.*,room.id,room.name", filter: { customer: user.id } };
   const { data, isLoading } = useRoomRequests(["MyRoomRequests", user.id, query], query);
@@ -55,7 +56,7 @@ const MyBookingList = ({ user }) => {
                       </td>
                       <td class="text-end">
                         <span class="text-dark mb-1 fw-bolder d-block fs-6">Request Date</span>
-                        <span class="text-gray-900 fw-bold d-block fs-7">5 day ago</span>
+                        <span class="text-gray-900 fw-bold d-block fs-7">{getIsoDate(item.date_created)}</span>
                       </td>
                       <td class="text-end">
                         <span class="text-dark mb-1 fw-bolder d-block fs-6">Status</span>

@@ -5,7 +5,7 @@ import { momoProviders } from "@/lib/momo";
 import { useAuthUser } from "@/store/auth";
 import React from "react";
 import { FormLabel } from "react-bootstrap";
-import { useMutation } from "react-query";
+import { focusManager, useMutation } from "react-query";
 import { Drawer, Input, InputPicker, Placeholder, MaskedInput, Button } from "rsuite";
 import { useBoolean } from "usehooks-ts";
 
@@ -42,6 +42,7 @@ const BookPayment = ({ bookingId, room, hostel, item }) => {
     },
     onSuccess: () => {
       showMsg(`Payment Received..`);
+      focusManager.setFocused(true);
     },
     onError: (e) => showError(e.message),
   });

@@ -1,6 +1,6 @@
 import { useUser } from "@/hooks/users";
 import { assetUrl } from "@/lib/asset";
-import { Layers3, UserRoundCog } from "lucide-react";
+import { Layers3, LayoutDashboard, UserRoundCog } from "lucide-react";
 import React from "react";
 import { Loader } from "rsuite";
 import Link from "next/link";
@@ -54,7 +54,12 @@ const UserProfileCard = ({ userId }) => {
                   </a>
                 </Link>
               </li>
-              <UserLinkItem title={`Room Requests`} url={`/dashboard/profile/${user.id}/room_request`} />
+
+              <UserLinkItem
+                icon={<LayoutDashboard className="text-dark  me-2" size={20} />}
+                title={`Room Requests`}
+                url={`/dashboard/profile/${user.id}/room_request`}
+              />
             </ul>
           </div>
         </div>
