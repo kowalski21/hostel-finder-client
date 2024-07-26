@@ -79,7 +79,7 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
                     </td>
                     <td>
                       <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-8">
-                        {item.room.name}
+                        {item?.room?.name}
                       </a>
                       <span className="text-muted fw-semibold text-muted d-block fs-8">GHS {item.room_price} </span>
                     </td>
