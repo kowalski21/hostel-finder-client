@@ -7,3 +7,4 @@ A case where the student is supposed to see only the request ,all the request of
 --manager shouldn't be given the privilege to book hostel for a student , should always be the student account - fixed
 
 --Now map integration and the payment system.
+

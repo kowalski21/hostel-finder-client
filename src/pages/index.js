@@ -40,7 +40,10 @@ const Home = () => {
             </h3>
             <p className="text-muted">Find, Book a Hostel with ease</p>
             <div className="separator text-dark mb-5"></div>
-            {/* <button className="btn btn-dark btn-sm me-2">Login</button> */}
+            <Link href={`/mapview`}>
+              <button className="btn btn-dark btn-sm me-2">View on Map</button>
+            </Link>
+
             {isManager() ? (
               <Link href={`/dashboard`}>
                 <button className="btn btn-dark btn-sm">Dashboard</button>

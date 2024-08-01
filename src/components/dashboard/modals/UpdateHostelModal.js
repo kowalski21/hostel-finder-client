@@ -19,6 +19,8 @@ const UpdateHostelModal = ({ id, hostel }) => {
     city: hostel?.city,
     status: hostel?.status,
     manager: hostel?.manager?.id,
+    lng: hostel.lng || -1.537341,
+    lat: hostel.lat || 6.677259,
   });
   const { prepFile, file, fileCheck, handleFile } = useFile();
   const mutation = useUpdateHostelMutation();
@@ -52,7 +54,7 @@ const UpdateHostelModal = ({ id, hostel }) => {
 
       <Modal open={value} onClose={toggle} backdrop="static">
         <Modal.Header>
-          <Modal.Title className="fw-bolder">New Hostel</Modal.Title>
+          <Modal.Title className="fw-bolder">Update Hostel</Modal.Title>
         </Modal.Header>
         <div className="separator my-2"></div>
         <Modal.Body>
@@ -70,6 +72,14 @@ const UpdateHostelModal = ({ id, hostel }) => {
               <div className="col-6 mt-3">
                 <FormLabel className="required fw-bolder">City</FormLabel>
                 <Input value={form.city} onChange={handleSuite("city")} className="text-dark fw-bolder" />
+              </div>
+              <div className="col-6 mt-3">
+                <FormLabel className="required fw-bolder">Lattitude</FormLabel>
+                <Input value={form.lat} type="number" onChange={handleSuite("lat")} className="text-dark fw-bolder" />
+              </div>
+              <div className="col-6 mt-3">
+                <FormLabel className="required fw-bolder">Longitude</FormLabel>
+                <Input value={form.lng} type="number" onChange={handleSuite("lng")} className="text-dark fw-bolder" />
               </div>
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Thumbnail</FormLabel>

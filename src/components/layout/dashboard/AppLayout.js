@@ -1,11 +1,22 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import AppHeader from "./AppHeader";
 import { useAuth } from "@/hooks/auth";
 import { Loader } from "rsuite";
 import BackButton from "@/components/reusable/BackButton";
+import { useLocationActions } from "@/store/location";
 
 const AppLayout = ({ children }) => {
   const { data, isLoading } = useAuth();
+  const actions = useLocationActions();
+  const getUserLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      actions.modLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+    });
+  };
+  useEffect(() => {
+    getUserLocation();
+  }, []);
   return (
     <Fragment>
       {isLoading && <Loader center vertical />}

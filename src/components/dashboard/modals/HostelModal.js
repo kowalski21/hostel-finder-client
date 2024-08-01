@@ -23,6 +23,8 @@ const HostelModal = () => {
     city: "Kumasi",
     status: "draft",
     manager: authUser.id,
+    lng: -1.537341,
+    lat: 6.677259,
   });
   const { prepFile, file, fileCheck, handleFile } = useFile();
   const mutation = useNewHostelMutation();
@@ -70,6 +72,14 @@ const HostelModal = () => {
               <div className="col-6 mt-3">
                 <FormLabel className="required fw-bolder">City</FormLabel>
                 <Input value={form.city} onChange={handleSuite("city")} className="text-dark fw-bolder" />
+              </div>
+              <div className="col-6 mt-3">
+                <FormLabel className="required fw-bolder">Lattitude</FormLabel>
+                <Input value={form.lat} onChange={handleSuite("lat")} className="text-dark fw-bolder" />
+              </div>
+              <div className="col-6 mt-3">
+                <FormLabel className="required fw-bolder">Longitude</FormLabel>
+                <Input value={form.lng} onChange={handleSuite("lng")} className="text-dark fw-bolder" />
               </div>
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Thumbnail</FormLabel>
