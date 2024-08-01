@@ -65,9 +65,11 @@ const MyBookingList = ({ user }) => {
                         </span>
                       </td>
                       <td class="text-end">
-                        <Link href={`/dashboard/room_request/${item.id}`} legacyBehavior>
-                          <a className="btn btn-sm  btn-bg-light btn-active-color-primary">View</a>
-                        </Link>
+                        {["published", "draft"].includes(item.status) && (
+                          <Link href={`/dashboard/room_request/${item.id}`} legacyBehavior>
+                            <a className="btn btn-sm  btn-bg-light btn-active-color-primary">View</a>
+                          </Link>
+                        )}
                       </td>
                     </tr>
                   );

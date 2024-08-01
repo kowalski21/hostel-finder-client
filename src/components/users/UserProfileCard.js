@@ -43,17 +43,13 @@ const UserProfileCard = ({ userId }) => {
                   </a>
                 </Link>
               </li>
-              <li className="nav-item mt-5">
-                <Link href={`/dashboard/profile/${user.id}/hostels`} legacyBehavior>
-                  <a className="nav-link text-muted text-active-dark ms-0 py-0 me-10 ps-9 border-0 cursor-pointer active">
-                    <Layers3 className="text-dark me-2" size={20} />
-                    My Hostels
-                    {router.asPath === `/dashboard/profile/${user.id}/hostels` && (
-                      <span className="bullet-custom position-absolute start-0 top-0 w-3px h-100 bg-dark rounded-end"></span>
-                    )}
-                  </a>
-                </Link>
-              </li>
+              {["Administrator", "Hostel Manager"].includes(user?.role?.name) && (
+                <UserLinkItem
+                  icon={<Layers3 className="text-dark  me-2" size={20} />}
+                  title={`My Hostels`}
+                  url={`/dashboard/profile/${user.id}/hostels`}
+                />
+              )}
 
               <UserLinkItem
                 icon={<LayoutDashboard className="text-dark  me-2" size={20} />}

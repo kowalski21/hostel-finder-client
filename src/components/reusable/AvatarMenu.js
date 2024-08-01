@@ -71,19 +71,21 @@ const AvatarMenu = () => {
           </a>
         </div> */}
 
-        <div className="menu-item px-5">
-          <Link href={`/dashboard/profile/${user?.id}/hostels`} legacyBehavior>
-            <a className="menu-link px-5">My Hostels</a>
-          </Link>
-        </div>
+        {user && ["Adminstrator", "Hostel Manager"].includes(user?.role?.name) && (
+          <div className="menu-item px-5">
+            <Link href={`/dashboard/profile/${user?.id}/hostels`} legacyBehavior>
+              <a className="menu-link px-5">My Hostels</a>
+            </Link>
+          </div>
+        )}
 
         <div className="separator my-2"></div>
 
-        <div className="menu-item px-5 my-1">
+        {/* <div className="menu-item px-5 my-1">
           <a href="#" className="menu-link px-5">
             Account Settings
           </a>
-        </div>
+        </div> */}
 
         <div className="menu-item px-5">
           <a onClick={handleLogout} className="menu-link px-5">
