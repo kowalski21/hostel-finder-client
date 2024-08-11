@@ -8,7 +8,7 @@ const HostelMarker = ({ position, mapRef, item }) => {
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
   const handleMarkerClick = (position) => {
     // mapRef?.setZoom(20);
-    mapRef?.panTo(position);
+    mapRef.current?.panTo(position);
     // setInfoWindowData({ id, address });
     toggle();
   };

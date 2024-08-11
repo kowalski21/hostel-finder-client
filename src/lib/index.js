@@ -1,9 +1,13 @@
 import { Directus } from "@directus/sdk";
+import { create } from "apisauce";
 
 export const directus = new Directus(process.env.NEXT_PUBLIC_API_URL, {
   auth: {
     mode: "json",
   },
+});
+export const mapClient = create({
+  baseURL: "https://maps.googleapis.com/maps/api/place",
 });
 
 export const handleError = (errorObj) => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GoogleMap, LoadScript, MarkerF, usePla } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import { useLocation } from "@/store/location";
 import { Map } from "lucide-react";
 import HostelMarker from "./HostelMarker";
@@ -11,7 +11,13 @@ const convertMarkers = (markers) => {
     lng: marker[1],
   }));
 };
+const places = ["places"];
 const GoogleMapView = ({ items = [] }) => {
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_MAP_KEY,
+    nonce: "map",
+    libraries: ["places"],
+  });
   //   const [name, setName] = useState("");
   const [mapRef, setMapRef] = useState();
   const containerStyle = { width: "100%", height: "100vh" };
@@ -26,6 +32,7 @@ const GoogleMapView = ({ items = [] }) => {
   ];
   const newMarkers = convertMarkers(markers);
   const onLoad = (map) => {
+    console.log(`Loaded`);
     setMapRef(map);
     const bounds = new google.maps.LatLngBounds();
     // newMarkers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
@@ -37,11 +44,8 @@ const GoogleMapView = ({ items = [] }) => {
     <div>
       {/* {JSON.stringify(location)} */}
 
-      <LoadScript
-        mapIds={["5dc42679a6136f71"]}
-        libraries={["places"]}
-        googleMapsApiKey={process.env.NEXT_PUBLIC_MAP_KEY}
-      >
+      {/* <LoadScript mapIds={["5dc42679a6136f71"]} libraries={places} googleMapsApiKey={process.env.NEXT_PUBLIC_MAP_KEY}> */}
+      {isLoaded && (
         <GoogleMap
           onLoad={onLoad}
           options={{ mapId: "5dc42679a6136f71" }}
@@ -49,20 +53,14 @@ const GoogleMapView = ({ items = [] }) => {
           //   zoom={14}
           mapContainerStyle={containerStyle}
         >
-          {/* <MarkerF
-            position={center}
-
-          /> */}
-          {/* {newMarkers.map((marker, index) => {
-            return <HostelMarker mapRef={mapRef} key={index + 1} position={marker} />;
-          })} */}
           {items.map((item) => {
             return (
               <HostelMarker key={item.id} item={item} mapRef={mapRef} position={{ lat: item.lat, lng: item.lng }} />
             );
           })}
         </GoogleMap>
-      </LoadScript>
+      )}
+      {/* </LoadScript> */}
     </div>
   );
 };

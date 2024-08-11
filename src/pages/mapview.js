@@ -1,9 +1,12 @@
 import AppLayout from "@/components/layout/dashboard/AppLayout";
 import GoogleMapView from "@/components/mapview/GoogleMapView";
+import ParmaMapView from "@/components/mapview/ParmaMapView";
 import PlacesCompleteForm from "@/components/mapview/PlacesCompleteForm";
-import { useHostels } from "@/hooks/hostels";
+import PlacesMapView from "@/components/mapview/PlacesMapView";
+import TestGoogleMap from "@/components/mapview/TestGoogleMap";
+import { useHostelDistance, useHostels } from "@/hooks/hostels";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FormLabel } from "react-bootstrap";
 import { Input, Loader } from "rsuite";
 
@@ -12,9 +15,16 @@ import { Input, Loader } from "rsuite";
 // location using google maps auto complete
 // render the result on google maps
 const MapViewPageHostels = () => {
-  const query = { fields: "id,lat,lng,name,city,town,thumbnail" };
-  const { data, isLoading } = useHostels(["MapViewHostels", query], query);
-
+  const [coord, setCoord] = useState({ lat: 6.675651299999999, lng: -1.5575674 });
+  const [distance, setDistance] = useState(50);
+  // const query = { fields: "id,lat,lng,name,city,town,thumbnail" };
+  // const { data, isLoading } = useHostels(["MapViewHostels", query], query);
+  // const { data, isLoading } = useHostelDistance(["HostelDistance", coord, distance], coord, {
+  //   enabled: coord ? true : false,
+  // });
+  const handleCoord = (val) => {
+    setCoord(val);
+  };
   return (
     <AppLayout>
       <h3>Welcome to Map View </h3>
@@ -30,10 +40,15 @@ const MapViewPageHostels = () => {
             </div>
           </div>
         </div> */}
-        {isLoading && <Loader vertical center />}
+        {/* {JSON.stringify(data)} */}
+
+        {/* {isLoading && <Loader vertical center />} */}
         <div className="col-md-12">
-          {/* <PlacesCompleteForm /> */}
-          {data && data?.data && <GoogleMapView items={data?.data ? data?.data : []} />}
+          <PlacesMapView />
+          {/* <TestGoogleMap /> */}
+          {/* <ParmaMapView /> */}
+          {/* <PlacesCompleteForm handleCoord={handleCoord} /> */}
+          {/* {data && <GoogleMapView items={data ? data : []} />} */}
         </div>
       </div>
     </AppLayout>

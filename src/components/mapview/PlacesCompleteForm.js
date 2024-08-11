@@ -1,39 +1,54 @@
-import React from "react";
-import { useLoadScript } from "@react-google-maps/api";
-import { SelectPicker } from "rsuite";
-import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
-const PlacesCompleteForm = () => {
-  const isLoaded = useLoadScript({ googleMapsApiKey: process.env.NEXT_PUBLIC_MAP_KEY, libraries: ["places"] });
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      /* Define search scope here */
-    },
-    debounce: 300,
-  });
+import { useGetPlaceDetails } from "@/hooks/places";
+import React, { useState } from "react";
+import { FormLabel } from "react-bootstrap";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { Input, InputPicker, Slider } from "rsuite";
+const PlacesCompleteForm = ({ handleCoord }) => {
+  const [place, setPlace] = useState(null);
+  const [coord, setCoord] = useState(null);
+  const [distance, setDistance] = useState(50);
 
+  const { data, isLoading, error } = useGetPlaceDetails(["PlaceDetails", place], place, {
+    enabled: place ? true : false,
+    onSuccess: (data) => {
+      console.log(data.result.geometry.location);
+      // setCoord(data.result.geometry.location);
+      handleCoord(data.result.geometry.location);
+    },
+  });
   return (
     <div>
-      {JSON.stringify({ status, data, value })}
-      {/* <input type="text" className="form-control" value={value} onChange={(e) => setValue(e.target.value)} /> */}
-      {isLoaded && (
-        <SelectPicker
-          value={value}
-          //   onChange={(val) => setValue(val)}
-          onSearch={(item) => setValue(item)}
-          data={data}
-          labelKey="description"
-          valueKey="place_id"
-          block
-        />
-      )}
-      {/* {JSON.stringify({ data })} */}
+      PlacesCompleteForm
+      <div className="row">
+        <div className="col-md-6">
+          <FormLabel>Enter the radius for selection (meters)</FormLabel>
+          <Input type="number" min={50} value={distance} onChange={(val) => setDistance(val)} defaultValue={50} />
+        </div>
+        <div className="col-md-6">
+          <FormLabel>Select Location</FormLabel>
+          <GooglePlacesAutocomplete
+            apiKey={process.env.NEXT_PUBLIC_MAP_KEY}
+            selectProps={{
+              onChange: (val, meta) => {
+                // console.log(val);
+                // console.log(val.value.place_id);
+                setPlace(val.value.place_id);
+                // console.log(meta);
+              },
+            }}
+            autocompletionRequest={{
+              componentRestrictions: {
+                country: ["gh"],
+              },
+            }}
+          />
+        </div>
+      </div>
+      {/* {JSON.stringify({ info: data })} */}
+      {JSON.stringify({ coord })}
+      {coord && <button className="btn btn-dark btn-sm mt-5">Search !</button>}
     </div>
   );
 };
+
 export default PlacesCompleteForm;

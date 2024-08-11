@@ -44,3 +44,22 @@ export const useUpdateHostelMutation = () => {
     },
   });
 };
+
+export const useHostelDistance = (queryKey, query, options = {}) => {
+  // let url = `/map/search`
+  let queryParams;
+  if (query) {
+    queryParams = `/map/search?lat=${query.lat}&lng=${query.lng}`;
+  } else {
+    queryParams = `/map/search`;
+  }
+  return useQuery({
+    queryFn: async () => {
+      const response = await directus.transport.get(queryParams);
+      // response.
+      return response.data;
+    },
+    queryKey,
+    ...options,
+  });
+};
