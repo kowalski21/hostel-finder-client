@@ -9,10 +9,11 @@ import { useMutation } from "react-query";
 import { Modal, Button, ButtonToolbar, Placeholder, Grid, Col, Row, Input } from "rsuite";
 import { useBoolean } from "usehooks-ts";
 import { Plus, Settings } from "lucide-react";
+import MapSelectView from "@/components/mapview/MapSelectView";
 
 const UpdateHostelModal = ({ id, hostel }) => {
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
-  const { form, handleChange, handleExtra, handleSuite, resetForm } = useForm({
+  const { form, handleChange, handleExtra, handleSuite, resetForm, setForm } = useForm({
     name: hostel?.name,
     thumbnail: hostel?.thumbnail,
     town: hostel?.town,
@@ -22,6 +23,11 @@ const UpdateHostelModal = ({ id, hostel }) => {
     lng: hostel.lng || -1.537341,
     lat: hostel.lat || 6.677259,
   });
+  const handleLocation = (payload) => {
+    // handleExtra("lat", payload.lat);
+    setForm({ ...form, ...payload });
+    // handleExtra("lng", payload.lng);
+  };
   const { prepFile, file, fileCheck, handleFile } = useFile();
   const mutation = useUpdateHostelMutation();
 
@@ -93,6 +99,10 @@ const UpdateHostelModal = ({ id, hostel }) => {
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Status</FormLabel>
                 <SelectStatus defaultValue={form?.status} keyName={"status"} onChange={handleExtra} />
+              </div>
+              <div className="col-12 mt-5">
+                <FormLabel>Click on Map to select Hostel Location</FormLabel>
+                <MapSelectView handleLocation={handleLocation} coords={{ lat: form.lat, lng: form.lng }} />
               </div>
             </div>
           </div>
