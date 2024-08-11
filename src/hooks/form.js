@@ -21,5 +21,5 @@ export const useForm = (defaultObj) => {
     setForm(defaultObj);
   };
 
-  return { form, handleChange, handleExtra, handleSuite, resetForm };
+  return { form, handleChange, handleExtra, handleSuite, resetForm, setForm };
 };

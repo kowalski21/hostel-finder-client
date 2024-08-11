@@ -11,12 +11,14 @@ import { useBoolean } from "usehooks-ts";
 import { Plus } from "lucide-react";
 import { usePerms } from "@/hooks/perm";
 import { useAuthUser } from "@/store/auth";
+import TestGoogleMap from "@/components/mapview/TestGoogleMap";
+import MapSelectView from "@/components/mapview/MapSelectView";
 
 const HostelModal = () => {
   const authUser = useAuthUser();
 
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
-  const { form, handleChange, handleExtra, handleSuite, resetForm } = useForm({
+  const { form, handleChange, handleExtra, handleSuite, resetForm, setForm } = useForm({
     name: "",
     thumbnail: null,
     town: "",
@@ -26,6 +28,11 @@ const HostelModal = () => {
     lng: -1.537341,
     lat: 6.677259,
   });
+  const handleLocation = (payload) => {
+    // handleExtra("lat", payload.lat);
+    setForm({ ...form, ...payload });
+    // handleExtra("lng", payload.lng);
+  };
   const { prepFile, file, fileCheck, handleFile } = useFile();
   const mutation = useNewHostelMutation();
 
@@ -59,7 +66,7 @@ const HostelModal = () => {
         <div className="separator my-2"></div>
         <Modal.Body>
           <div className="container-fluid mx-0 px-0">
-            {/* {JSON.stringify({ form, file })} */}
+            {JSON.stringify({ form })}
             <div className="row">
               <div className="col-12">
                 <FormLabel className="required fw-bolder">Name</FormLabel>
@@ -90,9 +97,14 @@ const HostelModal = () => {
                 <FormLabel className="required fw-bolder">Manager</FormLabel>
                 <SelectUsers defaultValue={authUser.id} keyName={"manager"} onChange={handleExtra} />
               </div>
+
               <div className="col-12 mt-3">
                 <FormLabel className="required fw-bolder">Status</FormLabel>
                 <SelectStatus keyName={"status"} onChange={handleExtra} />
+              </div>
+              <div className="col-12 mt-5">
+                <FormLabel>Click on Map to select Hostel Location</FormLabel>
+                <MapSelectView handleLocation={handleLocation} />
               </div>
             </div>
           </div>
