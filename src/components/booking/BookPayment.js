@@ -3,6 +3,7 @@ import { useNotify } from "@/hooks/notify";
 import { directus } from "@/lib";
 import { momoProviders } from "@/lib/momo";
 import { useAuthUser } from "@/store/auth";
+import { useRouter } from "next/router";
 import React from "react";
 import { FormLabel } from "react-bootstrap";
 import { focusManager, useMutation } from "react-query";
@@ -10,6 +11,7 @@ import { Drawer, Input, InputPicker, Placeholder, MaskedInput, Button } from "rs
 import { useBoolean } from "usehooks-ts";
 
 const BookPayment = ({ bookingId, room, hostel, item }) => {
+  const router = useRouter();
   const authUser = useAuthUser();
   const { showError, showMsg } = useNotify();
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
@@ -27,51 +29,34 @@ const BookPayment = ({ bookingId, room, hostel, item }) => {
   };
 
   const mutation = useMutation({
-    mutationFn: async ({ requestPayload, paymentPayload, tenantPayload }) => {
+    mutationFn: async (payload) => {
       // await paymentPromise(); // simulate a fetch request
-      // make payment
-      const paymentRes = await directus.items("payment").createOne(paymentPayload);
-
-      // update room status
-
-      const roomRes = await directus.items("room_request").updateOne(bookingId, requestPayload);
-
-      // assign customer to room as tenant
-
-      const tenantRes = await directus.items("tenant").createOne(tenantPayload);
+      // console.log(payload);
+      const response = await directus.transport.post(`/payments/initiate`, payload);
+      return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
       showMsg(`Payment Received..`);
-      focusManager.setFocused(true);
+      window.open(data.authorization_url, "_blank");
+
+      // router.
+      // focusManager.setFocused(true);
     },
     onError: (e) => showError(e.message),
   });
   const handlePayment = () => {
-    const requestPayload = {
-      paid: true,
-      status: "paid",
+    // console.log(room);
+    // console.log(item);
+    let payload = {
+      email: authUser.email,
+      amount: Number(item.room_price) * 100,
+      metadata: { room_request: item.id },
     };
-    const paymentPayload = {
-      amount: item.room_price,
-      customer: authUser.id,
-      room: room.id,
-      payment_type: "Momo",
-      meta: {
-        provider: form.provider,
-        phone_number: form.phone_number,
-      },
-      room_request: bookingId,
-      status: "published",
-    };
-    const tenantPayload = {
-      status: "published",
-      occupant: authUser.id,
-      room: room.id,
-      hostel: hostel.id,
-      paid_amount: item.room_price,
-      room_request: item.id,
-    };
-    mutation.mutate({ requestPayload, paymentPayload, tenantPayload });
+
+    mutation.mutate(payload);
+
+    // console.log(payload);
   };
 
   return (
@@ -86,7 +71,7 @@ const BookPayment = ({ bookingId, room, hostel, item }) => {
         </Drawer.Header>
         <Drawer.Body>
           <Placeholder.Paragraph />
-          {JSON.stringify(form)}
+          {/* {JSON.stringify(form)} */}
           <FormLabel className="required">Select Momo Provider</FormLabel>
           <InputPicker
             value={form.provider}
@@ -98,9 +83,7 @@ const BookPayment = ({ bookingId, room, hostel, item }) => {
           <FormLabel className="required mt-5">Amount (GHS)</FormLabel>
           <Input type="number" value={item.room_price} disabled />
           <FormLabel className="required mt-5">Enter your Momo Number</FormLabel>
-          <p className="text-muted fs-8">
-            You will recieve a pop up on your phone after clicking the initiate payment button
-          </p>
+          <p className="text-muted fs-8">You will be redirected to a page to continue with payment</p>
           <MaskedInput
             value={form.phone_number}
             onChange={handleSuite("phone_number")}
