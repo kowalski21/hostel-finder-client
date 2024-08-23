@@ -85,10 +85,10 @@ const RoomRequestsTable = ({ room_requests = [] }) => {
                     </td>
                     <td>
                       <a href="#" className="text-gray-900 fw-bold text-hover-primary d-block mb-1 fs-8">
-                        {item.hostel.manager.first_name} {item.hostel.manager.last_name}
+                        {item.hostel?.manager?.first_name} {item.hostel?.manager?.last_name}
                       </a>
                       <span className="text-muted fw-semibold text-muted d-block fs-8">
-                        {item.hostel.manager.email}
+                        {item.hostel?.manager?.email}
                       </span>
                     </td>
                     <td>

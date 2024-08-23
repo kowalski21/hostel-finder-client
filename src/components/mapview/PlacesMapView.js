@@ -16,8 +16,9 @@ const MARKERS = [
 ];
 
 const mapContainerStyle = {
-  width: "50%",
-  height: "500px",
+  width: "100%",
+  height: "800px",
+  marginBotton: "100px",
 };
 
 const options = {

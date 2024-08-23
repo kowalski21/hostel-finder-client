@@ -12,8 +12,12 @@ import { useNewRoomRequestMutation } from "@/hooks/room_request";
 import { useAuthUser } from "@/store/auth";
 import { assetUrl } from "@/lib/asset";
 import { usePerms } from "@/hooks/perm";
+import { focusManager } from "react-query";
+import { useRouter } from "next/router";
 
 const NewRoomRequestDrawer = ({ room, hostelId, manager }) => {
+  // const {showError,showMsg} = useNotify()
+  const router = useRouter();
   const { isManager, IsOwner } = usePerms();
   const authUser = useAuthUser();
   const { showError, showMsg } = useNotify();
@@ -43,10 +47,12 @@ const NewRoomRequestDrawer = ({ room, hostelId, manager }) => {
         showError(e.message);
       },
       onSuccess: (data) => {
-        alert("its working");
+        // alert("its working");
         resetForm();
         toggle();
         showMsg("Room Request Created");
+        // focusManager.setFocused(true);
+        router.push(`/dashboard/profile/${authUser.id}/room_request`);
       },
     });
   };

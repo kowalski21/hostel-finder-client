@@ -6,8 +6,11 @@ import { useBoolean } from "usehooks-ts";
 import { FormLabel } from "react-bootstrap";
 import { useForm } from "@/hooks/form";
 import { useNewRoomMutation, useUpdateRoomMutation } from "@/hooks/room";
+import { useNotify } from "@/hooks/notify";
+import { focusManager } from "react-query";
 
 const AddRoomDrawer = ({ hostelId }) => {
+  const { showError, showMsg } = useNotify();
   const { value, setValue, setTrue, setFalse, toggle } = useBoolean(false);
   const { form, handleChange, handleSuite, handleExtra, resetForm } = useForm({
     name: "",
@@ -24,9 +27,11 @@ const AddRoomDrawer = ({ hostelId }) => {
     mutation.mutate(form, {
       onError: (e) => console.log(e),
       onSuccess: (data) => {
-        alert("its working");
+        // alert("Room Added");
+        showMsg("New Room Added!!");
         resetForm();
         toggle();
+        focusManager.setFocused(true);
       },
     });
   };
